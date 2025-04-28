@@ -1,5 +1,6 @@
 import { test, expect, request } from '@playwright/test'
 import tags from '../test-data/tags.json'
+import {faker} from '@faker-js/faker'
 
 test.beforeEach( async ({page}) => {
     await page.route('*/**/api/tags', async route => {
@@ -70,7 +71,6 @@ test('cteate article', async({page, request}) => {
     const articleResponse = await page.waitForResponse('https://conduit-api.bondaracademy.com/api/articles/')
     const articleresponseBody = await articleResponse.json()
     const slugId = articleresponseBody.article.slugId
-
 
     await expect(page.locator('.article-page h1')).toContainText('Playwright is awesome')
     await page.getByText('Home').click()
